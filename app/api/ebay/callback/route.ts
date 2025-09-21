@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { Ebay } from "@/lib/ebay/ebayClass";
 
 export async function GET(req: NextRequest) {
+  const ebay = new Ebay();
   const { searchParams, origin } = new URL(req.url);
   const code = searchParams.get("code");
   const state = searchParams.get("state");
@@ -21,7 +22,6 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const ebay = new Ebay();
     const tokens = await ebay.getUserAccessToken(code);
 
     console.log("tokens received: ", tokens);
